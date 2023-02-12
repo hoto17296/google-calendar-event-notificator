@@ -12,3 +12,8 @@
 ```
 npm run clasp -- push
 ```
+
+## Deploy
+```
+npm run clasp -- deploy
+```
