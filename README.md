@@ -5,7 +5,9 @@
 2. Clone this repository and `npm install`
 3. `npm run clasp -- login`
 4. Create new script or set exsisting script ID
-  - Create new script: `npm run clasp -- create --title GoogleCalendarEventNotificator --type standalone --rootDir ./src`
+  - Create new script:
+    - `npm run clasp -- create --title GoogleCalendarEventNotificator --type standalone --rootDir ./src`
+    - Create trigger from calendar source
   - Set exsisting script ID: Create `.clasp.json` file and write `{"scriptId": "<Script ID>", "rootDir": "./src"}`
 
 ## Compile and push script
