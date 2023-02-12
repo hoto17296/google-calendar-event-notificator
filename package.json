@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "clasp": "clasp"
+    "clasp": "clasp",
+    "build": "cp src/appsscript.json dist/ && parcel build --no-source-maps src/main.ts",
+    "push": "npm run build && clasp push"
   },
   "devDependencies": {
-    "@google/clasp": "^2.4.2"
+    "@google/clasp": "^2.4.2",
+    "@types/google-apps-script": "^1.0.57",
+    "parcel": "^2.8.3"
   }
 }

@@ -6,16 +6,11 @@
 3. `npm run clasp -- login`
 4. Create new script or set exsisting script ID
   - Create new script:
-    - `npm run clasp -- create --title GoogleCalendarEventNotificator --type standalone --rootDir ./src`
+    - `npm run clasp -- create --title GoogleCalendarEventNotificator --type standalone --rootDir ./dist`
     - Create trigger from calendar source
-  - Set exsisting script ID: Create `.clasp.json` file and write `{"scriptId": "<Script ID>", "rootDir": "./src"}`
+  - Set exsisting script ID: Create `.clasp.json` file and write `{"scriptId": "<Script ID>", "rootDir": "./dist"}`
 
 ## Compile and push script
 ```
-npm run clasp -- push
-```
-
-## Deploy
-```
-npm run clasp -- deploy
+npm run push
 ```

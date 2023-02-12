@@ -1,2 +1,5 @@
 node_modules
 .clasp.json
+dist
+!dist/.keep
+.parcel-cache
