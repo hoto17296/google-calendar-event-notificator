@@ -3,5 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
+    "clasp": "clasp"
   },
+  "devDependencies": {
+    "@google/clasp": "^2.4.2"
+  }
 }
