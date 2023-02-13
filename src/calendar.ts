@@ -9,7 +9,7 @@ export interface CustomCalendarChangeEvent
  * 変更があったカレンダーイベントを取得する
  * syncToken が存在しない場合 (初回実行時など) は空の結果を返す
  */
-export function getCalendarChanges(
+export function fetchCalendarChanges(
   calendarId: string
 ): CustomCalendarChangeEvent[] {
   if (!Calendar.Events) throw new Error()
