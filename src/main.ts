@@ -1,8 +1,8 @@
-import { getCalendarUpdates } from './calendar'
+import { getCalendarChanges } from './calendar'
 import { postMessage } from './slack'
 
 function main({ calendarId }: { calendarId: string }) {
-  getCalendarUpdates(calendarId).forEach((event) => {
+  getCalendarChanges(calendarId).forEach((event) => {
     console.log(event)
     let username: string, color: string
     switch (event.changeState) {
