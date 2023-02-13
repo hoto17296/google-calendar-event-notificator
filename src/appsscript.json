@@ -10,5 +10,9 @@
     ]
   },
   "exceptionLogging": "STACKDRIVER",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/calendar.events",
+    "https://www.googleapis.com/auth/script.external_request"
+  ],
   "runtimeVersion": "V8"
 }

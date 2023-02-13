@@ -1,9 +1,10 @@
 import { getCalendarUpdates } from './calendar'
+import { postMessage } from './slack'
 
 function main({ calendarId }: { calendarId: string }) {
   getCalendarUpdates(calendarId).forEach((event) => {
     console.log(event)
-    // TODO: Notify to Slack
+    postMessage({ text: 'foo!' })
   })
 }
 
