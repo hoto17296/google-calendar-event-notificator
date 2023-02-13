@@ -1,6 +1,6 @@
 {
   "name": "google-calendar-event-notificator",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Google カレンダーの変更通知を Slack に飛ばす Google Apps Script",
   "license": "MIT",
   "private": true,
