@@ -33,10 +33,6 @@ function main({ calendarId }: { calendarId: string }) {
   })
 }
 
-// そのままだと Parcel ビルド時に変数名が minify されてしまうため、
-// global オブジェクトに登録することで trigger 設定が正常に動作するようにする
-global.main = main
-
 function buildDateTimeString(
   start: GoogleAppsScript.Calendar.Schema.EventDateTime,
   end: GoogleAppsScript.Calendar.Schema.EventDateTime

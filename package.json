@@ -1,15 +1,14 @@
 {
   "name": "google-calendar-event-notificator",
   "version": "0.0.0",
-  "description": "",
+  "description": "Google カレンダーの変更通知を Slack に飛ばす Google Apps Script",
   "scripts": {
     "clasp": "clasp",
-    "build": "cp src/appsscript.json dist/ && parcel build --no-source-maps src/main.ts",
+    "build": "cp src/appsscript.json dist/ && cat src/*.ts | grep -Ev '^import' > dist/bundle.ts",
     "push": "npm run build && clasp push"
   },
   "devDependencies": {
     "@google/clasp": "^2.4.2",
-    "@types/google-apps-script": "^1.0.57",
-    "parcel": "^2.8.3"
+    "@types/google-apps-script": "^1.0.57"
   }
 }
