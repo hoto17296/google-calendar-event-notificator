@@ -5,24 +5,32 @@ export interface CustomCalendarChangeEvent
   changeState: CalendarChangeState
 }
 
+/**
+ * 変更があったカレンダーイベントを取得する
+ * syncToken が存在しない場合 (初回実行時など) は空の結果を返す
+ */
 export function getCalendarUpdates(
   calendarId: string
 ): CustomCalendarChangeEvent[] {
   if (!Calendar.Events) throw new Error()
 
   const properties = PropertiesService.getUserProperties()
-  const syncToken = properties.getProperty('syncToken') || undefined
+  const syncToken =
+    properties.getProperty('syncToken') || fetchSyncToken(calendarId)
 
-  const res = Calendar.Events.list(calendarId, {
-    calendarId,
-    syncToken,
-    showDeleted: true,
-  })
-
-  if (res.nextSyncToken) properties.setProperty('syncToken', res.nextSyncToken)
-
-  // syncToken が取得できない場合 (= 初回実行時) は大量のデータを取得してしまうため結果を捨てる
-  if (!syncToken) return []
+  let res: GoogleAppsScript.Calendar.Schema.Events
+  try {
+    res = Calendar.Events.list(calendarId, {
+      calendarId,
+      syncToken,
+      showDeleted: true,
+    })
+    if (!res.nextSyncToken) throw new Error('nextSyncToken is undefined')
+    properties.setProperty('syncToken', res.nextSyncToken)
+  } catch (e) {
+    properties.deleteProperty('syncToken')
+    throw e
+  }
 
   if (!res.items) return []
 
@@ -35,6 +43,32 @@ export function getCalendarUpdates(
   )
 }
 
+/**
+ * フルスキャンを実行して syncToken を返す
+ */
+function fetchSyncToken(calendarId: string): string {
+  const now = new Date()
+  let res: GoogleAppsScript.Calendar.Schema.Events
+  let pageToken: string | undefined = undefined
+  // 現在時刻以降のイベントを取得し続ける
+  while (true) {
+    res = Calendar.Events!.list(calendarId, {
+      calendarId,
+      pageToken,
+      showDeleted: true,
+      timeMin: now.toISOString(),
+      maxResults: 2500,
+    })
+    // syncToken が得られたら終了する
+    if (res.nextSyncToken) return res.nextSyncToken
+    if (!res.nextPageToken) throw new Error()
+    pageToken = res.nextPageToken
+  }
+}
+
+/**
+ * イベントデータから変更内容を推定する
+ */
 function detectChangeState(
   event: GoogleAppsScript.Calendar.Schema.Event
 ): CalendarChangeState {
